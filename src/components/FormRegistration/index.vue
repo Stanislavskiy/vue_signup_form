@@ -19,7 +19,10 @@
     </div>
     
     <!-- Sign up form -->
-    <form class="form form-registration__form">
+    <form 
+      class="form form-registration__form"
+      @submit.prevent="submitForm()"
+    >
       <h2 class="form-registration__header">
         Sign Up
       </h2>
@@ -63,10 +66,43 @@
           v-model="lastName"
         >
       </label>
+      <label for="countrySelect" class="form__label">
+        Country
+      </label>
 
-      <!-- Select1 -->
-      <!-- Select2 -->
-      <!-- Datepicker -->
+      <!-- Select -->
+      <v-select 
+        id="countrySelect"
+        placeholder="Select"
+        v-model="country"             
+        :options="country_list"
+        :clearSearchOnSelect="false"
+        label="countryName"
+      />
+
+      <label for="citySelect" class="form__label">
+        City
+      </label>
+
+      <!-- Select -->
+      <v-select
+        id="citySelect"
+        placeholder="Select"
+        v-model="city"
+        label="name"
+        :options="cities"
+        :disabled="!country"
+        :clearSearchOnSelect="false"
+      />
+
+      <label class="form__label">
+        Birth date
+        <!-- Datepicker -->
+        <datepicker 
+          v-model="birthDate"
+          format="dd MMM yyyy"
+        />
+      </label>
 
       <label class="form__label">
         Zip code
@@ -76,21 +112,46 @@
           v-model="zipCode"
         >
       </label>
-
-      <button type="submit">Sign up</button>
+      <div v-if="errors.length" class="form__errors">
+        <div v-for="error in errors" :key="error">
+          {{error}}
+        </div>  
+      </div>
+      <button class="form__button" type="submit">Sign up</button>
     </form>
   </div>
 </template>
 
 <script>
 import { mapMutations } from "vuex";
+import vSelect from "vue-select";
+import Datepicker from "vuejs-datepicker";
+import countries from "../../assets/data/countries.json";
+import cities from "../../assets/data/cities.json";
 
 export default {
+  data() {
+    return {
+      /* 
+        Список стран (countries) и городов (cities) 
+        для отображения в select
+      */
+      country_list: countries,
+      city_list: [],
+
+      /* Массив для хранения ошибок формы */
+      errors: []
+    };
+  },
+  components: {
+    vSelect,
+    Datepicker
+  },
   computed: {
     /* 
       Двунаправленные вычисляемые свойства.
-      Служат для привязки v-model к данным 
-      во Vuex
+      Служат для связывания данных формы (v-model) 
+      с данными во Vuex
     */
 
     login: {
@@ -149,7 +210,7 @@ export default {
 
     city: {
       get() {
-        return this.$store.getters.country;
+        return this.$store.getters.city;
       },
       set(value) {
         return this.updateCity(value);
@@ -158,7 +219,7 @@ export default {
 
     birthDate: {
       get() {
-        return this.$store.getters.country;
+        return this.$store.getters.birthDate;
       },
       set(value) {
         return this.updateBirthDate(value);
@@ -167,10 +228,35 @@ export default {
 
     zipCode: {
       get() {
-        return this.$store.getters.country;
+        return this.$store.getters.zipCode;
       },
       set(value) {
         return this.updateZipCode(value);
+      }
+    },
+
+    cities: function() {
+      /* 
+        Список городов выбранной страны. 
+        Служит для отображения в select
+      */
+      if (this.country) {
+        return cities.filter(city => {
+          return city.country === this.country.countryCode;
+        });
+      } else {
+        return [];
+      }
+    }
+  },
+  watch: {
+    country: function() {
+      /* 
+        Следим за изменением значения страны.
+        Очищаем значение города если страна не указана
+      */
+      if (!this.country) {
+        this.updateCity(null);
       }
     }
   },
@@ -182,9 +268,29 @@ export default {
       "updateFirstName",
       "updateLastName",
       "updateCountry",
+      "updateCity",
       "updateBirthDate",
       "updateZipCode"
-    ])
+    ]),
+
+    submitForm() {
+      this.errors = [];
+
+      if (this.login && this.email && this.password) {
+        this.$notify({
+          group: "app",
+          type: "success",
+          title: "Success!",
+          text: "All changes saved"
+        });
+      } else {
+        this.errors.push(
+          `
+          Fields marked with "*" should not be empty
+          `
+        );
+      }
+    }
   }
 };
 </script>

@@ -23,6 +23,10 @@ const mutations = {
     state.country = country;
   },
 
+  updateCity(state, city) {
+    state.city = city;
+  },
+
   updateBirthDate(state, birthDate) {
     state.birthDate = birthDate;
   },
