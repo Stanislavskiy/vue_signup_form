@@ -133,6 +133,8 @@
 <script>
 import { mapMutations, mapActions } from "vuex";
 import { getCountries, getCities } from "../../api";
+
+// Сторонние компоненты
 import Datepicker from "vuejs-datepicker";
 import vSelect from "vue-select";
 

@@ -6,6 +6,7 @@ export function getCities(countryCode) {
   */
   if (countryCode) {
     const CITIES_URL = `http://api.geonames.org/searchJSON?username=example.name&country=${countryCode}&style=SHORT`;
+
     return axios
       .get(CITIES_URL)
       .then(response => {
@@ -26,6 +27,7 @@ export function getCountries() {
   */
   const COUNTRIES_URL =
     "https://restcountries.eu/rest/v2/all?fields=name;alpha2Code";
+
   return axios
     .get(COUNTRIES_URL)
     .then(response => {

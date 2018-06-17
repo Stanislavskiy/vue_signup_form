@@ -1,8 +1,8 @@
 const actions = {
   clearRegistrationData({ commit }) {
     /* 
-      Для очистки формы после отправки 
-      данных на сервер
+      Для очистки данных регистрации 
+      после их обработки
     */
     commit("updateLogin", null);
     commit("updatePassword", null);
@@ -17,12 +17,11 @@ const actions = {
 
   confirmRegistrationData({ commit }) {
     /* 
-      Симулирует обработку данных регистрации
-      (отправка на сервер и т.д). Возвращает 
-      промис c задержкой
+      Симулирует обработку данных регистрации. 
+      Возвращает промис c задержкой
     */
     return new Promise((resolve, reject) => {
-      setTimeout(resolve, 1000);
+      setTimeout(resolve, 2000);
     });
   }
 };
