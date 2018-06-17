@@ -21,7 +21,7 @@
     <!-- Sign up form -->
     <form 
       class="form form-registration__form"
-      @submit.prevent="submitForm()"
+      
     >
       <h2 class="form-registration__header">
         Sign Up
@@ -76,8 +76,9 @@
         placeholder="Select"
         v-model="country"             
         :options="country_list"
+        label="name"
         :clearSearchOnSelect="false"
-        label="countryName"
+        @input="updateCityList"
       />
 
       <label for="citySelect" class="form__label">
@@ -89,8 +90,7 @@
         id="citySelect"
         placeholder="Select"
         v-model="city"
-        label="name"
-        :options="cities"
+        :options="city_list"
         :disabled="!country"
         :clearSearchOnSelect="false"
       />
@@ -117,36 +117,49 @@
           {{error}}
         </div>  
       </div>
-      <button class="form__button" type="submit">Sign up</button>
+      <div v-if="success" class="form__success">
+        <div class="form__success-title">Success!</div>
+        <div class="form__success-content">
+          All changes saved.
+        </div>
+      </div>
+      <button class="form__button" @click.prevent="getCountries()" type="submit">
+        Sign up
+      </button>
     </form>
   </div>
 </template>
 
 <script>
-import { mapMutations } from "vuex";
-import vSelect from "vue-select";
+import { mapMutations, mapActions } from "vuex";
+import { getCountries, getCities } from "../../api";
 import Datepicker from "vuejs-datepicker";
-import countries from "../../assets/data/countries.json";
-import cities from "../../assets/data/cities.json";
+import vSelect from "vue-select";
 
 export default {
   data() {
     return {
       /* 
-        Список стран (countries) и городов (cities) 
-        для отображения в select
+        Список стран (country_list) и городов 
+        (city_list) для отображения в select
       */
-      country_list: countries,
+      country_list: [],
       city_list: [],
-
       /* Массив для хранения ошибок формы */
-      errors: []
+      errors: [],
+      /* 
+        Индикатор успешного выполнения всех 
+        операций 
+      */
+      success: false
     };
   },
+
   components: {
     vSelect,
     Datepicker
   },
+
   computed: {
     /* 
       Двунаправленные вычисляемые свойства.
@@ -233,34 +246,24 @@ export default {
       set(value) {
         return this.updateZipCode(value);
       }
-    },
-
-    cities: function() {
-      /* 
-        Список городов выбранной страны. 
-        Служит для отображения в select
-      */
-      if (this.country) {
-        return cities.filter(city => {
-          return city.country === this.country.countryCode;
-        });
-      } else {
-        return [];
-      }
     }
   },
+
   watch: {
     country: function() {
       /* 
         Следим за изменением значения страны.
-        Очищаем значение города если страна не указана
+        Очищаем значение города если значение 
+        страны неизвестно
       */
       if (!this.country) {
         this.updateCity(null);
       }
     }
   },
+
   methods: {
+    ...mapActions(["clearRegistrationData", "confirmRegistrationData"]),
     ...mapMutations([
       "updateLogin",
       "updatePassword",
@@ -274,23 +277,69 @@ export default {
     ]),
 
     submitForm() {
+      /* 
+        Вызывается в момент подтверждения формы.
+      */
       this.errors = [];
 
+      // Проверяем поля помеченные *
       if (this.login && this.email && this.password) {
-        this.$notify({
-          group: "app",
-          type: "success",
-          title: "Success!",
-          text: "All changes saved"
+        // Вызываем обработчик данных формы
+        this.confirmRegistrationData()
+          .then(() => {
+            // Очищаем поля
+            this.clearRegistrationData();
+            // Выводим сообщение об успешной регистрации
+            this.displaySuccess();
+          })
+          .catch(e => {
+            // выводим ошибку
+            this.errors.push(e);
+          });
+      } else {
+        // Выводим ошибку
+        this.errors.push(`
+          Fields marked with * should not be empty
+          `);
+      }
+    },
+
+    updateCityList() {
+      /*
+        Загружает список городов выбранной страны в 
+        city_list. вызывается в момент выбора страны
+      */
+      if (this.country) {
+        // Загружаем список городов по коду текущей страны
+        getCities(this.country.alpha2Code).then(cities => {
+          this.city_list = cities.map(city => {
+            // Формируем массив из имён полученных городов
+            return city.name;
+          });
         });
       } else {
-        this.errors.push(
-          `
-          Fields marked with "*" should not be empty
-          `
-        );
+        this.city_list = [];
       }
+    },
+
+    displaySuccess() {
+      /* 
+        Делаем значение success=true на несколько 
+        секунд для отображения сообщения об успешной 
+        регистрации
+      */
+      this.success = true;
+      setTimeout(() => {
+        this.success = false;
+      }, 5000);
     }
+  },
+
+  mounted() {
+    // Загружаем список всех стран в country_list
+    getCountries().then(result => {
+      this.country_list = result;
+    });
   }
 };
 </script>
