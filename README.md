@@ -5,7 +5,7 @@
 >
 > ***Demo***: http://vue-signup-form.zzz.com.ua/#/registration
 
-This app use third-party web services like: "***REST COUNTRIES***" and "***GeoNames***". This web services serve for retrieve the list of countries and cities.
+This app use third-party web services like: "***REST COUNTRIES***" and "***GeoNames***". This web services serve for retrieving the list of countries and cities.
 
 ## Build Setup
 
