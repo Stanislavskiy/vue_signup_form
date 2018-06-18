@@ -1,6 +1,7 @@
 # Vue sign up form
 
-> A Vue.js project
+> Task description: https://drive.google.com/file/d/1jR5CzR6wit-mXRWrhOUfcm-DYMAr2QU5/view
+> *Demo*: http://vue-signup-form.zzz.com.ua/#/registration
 
 ## Build Setup
 
