@@ -1,4 +1,4 @@
-# form_test
+# Vue sign up form
 
 > A Vue.js project
 
