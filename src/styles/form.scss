@@ -1,21 +1,61 @@
+// Common
+$accent-color: #ec5b5c;
+$success-color: #20c98b;
+$light-color: #adb1bd;
+$message-padding: 0.5rem;
+$message-font-size: 0.875rem;
+// Input placeholder
+$placeholder-color: #d5dce6;
+// .form
+$form-padding-large: 3.46rem;
+$form-padding-small: 1.3125rem;
+$form-background: #e9eff2;
+// .form__body
+$body-width-large: 35.625rem;
+$body-width-medium: 80%;
+$body-width-small: 90%;
+$body-background: #fff;
+$body-padding-large: 2.125rem 4.25rem 2.125rem 4.25rem;
+$body-padding-small: 2.125rem 2.125rem 2.125rem 2.125rem;
+$body-color: #343e5c;
+$body-margin-top: 1.3125rem;
+// .form__content
+$content-margin-top: 1.625rem;
+// .form__label
+$label-margin-top: 1.625rem;
+$label-wide-large: 26.75rem;
+$label-wide-small: 100%;
+$label-normal-large: 12.4375rem;
+$label-normal-small: 100%;
+// .form__input
+$input-border: 1px solid #d5dce6;
+$input-margin-top: 0.75rem;
+$input-padding: 0.6875rem;
+// .form__button
+$button-border-radius: 0 21px 21px 21px;
+$button-color: #fff;
+$button-background: #4ce0aa;
+$button-background-hover: hsl(158, 72%, 48%);
+$button-background-active: hsl(158, 73%, 40%);
+
 .form {
   box-sizing: border-box;
-  background: #e9eff2;
+  background: $form-background;
   height: auto;
-  padding-top: 3.46rem;
-  padding-bottom: 3.46rem;
+  padding-top: $form-padding-large;
+  padding-bottom: $form-padding-large;
   position: relative;
   
   &__body {
     box-sizing: border-box;
     display: inline-block;
-    width: 35.625rem;
-    background: #fff;
-    padding: 2.125rem 4.25rem 2.125rem 4.25rem;
-    color: #343e5c;
+    width: $body-width-large;
+    background: $body-background;
+    padding: $body-padding-large;
+    color: $body-color;
 
     &_margin_top {
-      margin-top: 1.3125rem;
+      margin-top: $body-margin-top;
     }
 
     &_border-radius {
@@ -29,39 +69,32 @@
     }
   }
 
-  &__content {
-    margin-top: 1.625rem;
-  }
-
   &__header {
     text-align: center;
     margin: 0;
     font-size: 2rem;
   }
-
+  
   &__content {
+    margin-top: $content-margin-top;
     font-size: 0.875rem;
     text-align: center;
   }
 
   &__label {
     font-size: 0.6875rem;
-    margin-top: 1.625rem;
+    margin-top: $label-margin-top;
     box-sizing: border-box;
     display: block;
-    color: #343e5c;
+    color: $body-color;
 
     &_width {
       &_normal {
-        width: 12.4375rem;
+        width: $label-normal-large;
       }
 
       &_wide {
-        width: 26.75rem;
-      }
-
-      &_100 {
-        width: 100%;
+        width: $label-wide-large;
       }
     }
   }
@@ -70,46 +103,47 @@
     box-sizing: border-box;
     font-size: 0.875rem;
     display: block;
-    border: 1px solid #d5dce6;
+    border: $input-border;
     border-radius: 5px;
     height: 2.5rem;
     width: 100%;
-    margin-top: 0.75rem;
-    color: #343e5c;
+    margin-top: $input-margin-top;
+    color: $body-color;
 
     &:focus {
       outline: none;
     }
 
     &_padding {
-      padding-left: 0.6875rem;
-      padding-right: 0.6875rem;
+      padding-left: $input-padding;
+      padding-right: $input-padding;
     }
 
     &_background_calendar {
-      background: url("~/assets/calendar.png") no-repeat center right 0.6875rem;
+      background: url("~/assets/calendar.png") no-repeat center right $input-padding;
     }
   }
 
   &__button {
-    border-radius: 0 21px 21px 21px;
-    height: 2.685rem;
     border: none;
+    border-radius: $button-border-radius;
+    height: 2.685rem;
     width: 100%;
-    color: #fff;
-    background: #4be1ab;
+    color: $button-color;
+    background: $button-background;
     font-size: 0.6875rem;
+    transition: background 0.1s ease-in;
 
     &:focus {
       outline: none;
     }
 
     &:hover {
-      background: #24da97;
+      background: $button-background-hover;
     }
 
     &:active {
-      background: #20c98b;
+      background: $button-background-active;
     }
   }
 
@@ -117,22 +151,22 @@
     box-sizing: border-box;
     text-align: center;
     // border: 1px solid rgba(#eb5a5a, 0.5);
-    border-radius: 5px;
+    // border-radius: 5px;
     width: 100%;
-    padding: 0.5rem;
-    font-size: 0.875rem;
-    color: #ec5b5c;
+    padding: $message-padding;
+    font-size: $message-font-size;
+    color: $accent-color;
   }
 
   &__success {
     box-sizing: border-box;
     text-align: center;
     // border: 1px solid rgba(#20c98b, 0.5);
-    border-radius: 5px;
+    // border-radius: 5px;
     width: 100%;
-    padding: 0.5rem;
-    font-size: 0.875rem;
-    color: #20c98b;
+    padding: $message-padding;
+    font-size: $message-font-size;
+    color: $success-color;
   }
 
   &__info {
@@ -147,11 +181,11 @@
 
     &_color {
       &_accent {
-        color: #ec5b5c;
+        color: $accent-color;
       }
 
       &_light {
-        color: #adb1bd;
+        color: $light-color;
       }
     }
   }
@@ -160,17 +194,17 @@
 @media screen and (max-width: 720px) {
   .form {
     &__body {
-      width: 80%;
+      width: $body-width-medium;
     }
 
     &__label {
       &_width {
         &_wide {
-          width: 100%;
+          width: $label-normal-small;
         }
 
         &_normal {
-          width: 100%;
+          width: $label-wide-small;
         }
       }
     }
@@ -179,29 +213,28 @@
 
 @media screen and (max-width: 540px) {
   .form {
-    padding-top: 1.3125rem;
-    padding-bottom: 1.3125rem;
+    padding-top: $form-padding-small;
+    padding-bottom: $form-padding-small;
     &__body {
-      width: 90% !important;
-      padding-left: 2rem;
-      padding-right: 2rem;
+      width: $body-width-small !important;
+      padding: $body-padding-small;
     }
   }
 }
 
 ::-webkit-input-placeholder {
   /* Chrome/Opera/Safari */
-  color: #d5dce6;
+  color: $placeholder-color;
 }
 ::-moz-placeholder {
   /* Firefox 19+ */
-  color: #d5dce6;
+  color: $placeholder-color;
 }
 :-ms-input-placeholder {
   /* IE 10+ */
-  color: #d5dce6;
+  color: $placeholder-color;
 }
 :-moz-placeholder {
   /* Firefox 18- */
-  color: #d5dce6;
+  color: $placeholder-color;
 }
