@@ -92,7 +92,7 @@
             class="form__input font font_sb"
             placeholder="Select"
             v-model="country"             
-            :options="country_list"
+            :options="countryList"
             label="name"
             :clearSearchOnSelect="false"
             @input="updateCityList"
@@ -111,7 +111,7 @@
             class="form__input font font_sb"
             :placeholder="cityPlaceholder"
             v-model="city"
-            :options="city_list"
+            :options="cityList"
             :clearSearchOnSelect="false"
             :disabled="!country"
           />
@@ -166,7 +166,7 @@ import { getCountries, getCities } from "../../api";
 // Сторонние компоненты
 import vSelect from "vue-select";
 import flatPickr from "vue-flatpickr-component";
-import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
+import PulseLoader from "vue-spinner/src/PulseLoader.vue";
 // Стили сторонних компонентов
 import "../../styles/select.scss";
 import "flatpickr/dist/flatpickr.css";
@@ -174,18 +174,19 @@ import "flatpickr/dist/themes/airbnb.css";
 /* 
   Переходы для компонентов-обёрток: transition, 
   transition-group 
-*/   
+*/
+
 import "../../styles/transition.scss";
 
 export default {
   data() {
     return {
       /* 
-        Список стран (country_list) и городов 
-        (city_list) для отображения в select
+        Список стран (countryList) и городов 
+        (cityList) для отображения в select
       */
-      country_list: [],
-      city_list: [],
+      countryList: [],
+      cityList: [],
       /* Массив для хранения ошибок формы */
       errors: [],
       /* 
@@ -203,7 +204,7 @@ export default {
     // Datepicker
     flatPickr,
     // Spinner
-    PulseLoader 
+    PulseLoader
   },
 
   computed: {
@@ -294,9 +295,9 @@ export default {
       }
     },
 
-    // Для отображения статуса загрузки списка городов 
+    // Для отображения статуса загрузки списка городов
     cityPlaceholder: function() {
-      if (this.country && this.city_list.length === 0) return "Loading...";
+      if (this.country && this.cityList.length === 0) return "Loading...";
       else return "Select";
     }
   },
@@ -357,18 +358,18 @@ export default {
     updateCityList() {
       /*
         Загружает список городов выбранной страны в 
-        city_list. вызывается в момент выбора страны
+        cityList. вызывается в момент выбора страны
       */
       if (this.country) {
         // Загружаем список городов по коду текущей страны
         getCities(this.country.alpha2Code).then(cities => {
-          this.city_list = cities.map(city => {
+          this.cityList = cities.map(city => {
             // Формируем массив из имён полученных городов
             return city.name;
           });
         });
       } else {
-        this.city_list = [];
+        this.cityList = [];
       }
     },
 
@@ -398,9 +399,9 @@ export default {
   },
 
   mounted() {
-    // Загружаем список всех стран в country_list
+    // Загружаем список всех стран в countryList
     getCountries().then(result => {
-      this.country_list = result;
+      this.countryList = result;
     });
   }
 };
