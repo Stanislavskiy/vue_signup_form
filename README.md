@@ -1,6 +1,5 @@
 # Vue.js sign up form
 
-Sign up form con
 
 > ***Task description***: https://drive.google.com/file/d/1jR5CzR6wit-mXRWrhOUfcm-DYMAr2QU5/view
 >
