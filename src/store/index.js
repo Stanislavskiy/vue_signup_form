@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
+// Подключаем модуль регистрации
 import registration from "./modules/registration";
 
 Vue.use(Vuex);

@@ -1,3 +1,7 @@
+/* 
+  Мутации модуля регистрации 
+*/
+
 const mutations = {
   updateLogin(state, login) {
     state.login = login;

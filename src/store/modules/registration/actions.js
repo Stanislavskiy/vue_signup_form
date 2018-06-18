@@ -1,3 +1,7 @@
+/* 
+  Действия модуля регистрации 
+*/
+
 const actions = {
   clearRegistrationData({ commit }) {
     /* 

@@ -64,11 +64,11 @@
               v-model="password"
             >
         </label>
-        <label class="form__label form__label_width_normal font font_b form_width_normal">
+        <label class="form__label form__label_width_normal font font_b">
           First name
           <input 
             type="text" 
-            class="form__input form__input_padding font font_sb form_width_normal"
+            class="form__input form__input_padding font font_sb"
             v-model="firstName"
           >
         </label>
@@ -76,13 +76,13 @@
           Last name
           <input 
             type="text" 
-            class="form__input form__input_padding font font_sb form_width_normal"
+            class="form__input form__input_padding font font_sb"
             v-model="lastName"
           >
         </label>
         <label 
           for="countrySelect" 
-          class="form__label form__label_width_normal font font_b form_width_normal"
+          class="form__label form__label_width_normal font font_b"
         >
           Country
 
@@ -111,9 +111,9 @@
             class="form__input font font_sb"
             :placeholder="cityPlaceholder"
             v-model="city"
-            :options="city_list || ['Loading...']"
+            :options="city_list"
             :clearSearchOnSelect="false"
-            :disabled="!country "
+            :disabled="!country"
           />
         </label>
 
@@ -171,7 +171,10 @@ import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
 import "../../styles/select.scss";
 import "flatpickr/dist/flatpickr.css";
 import "flatpickr/dist/themes/airbnb.css";
-// Переходы
+/* 
+  Переходы для компонентов-обёрток: transition, 
+  transition-group 
+*/   
 import "../../styles/transition.scss";
 
 export default {
@@ -291,10 +294,8 @@ export default {
       }
     },
 
+    // Для отображения статуса загрузки списка городов 
     cityPlaceholder: function() {
-      /*
-        Для отображения статуса загрузки списка городов 
-      */
       if (this.country && this.city_list.length === 0) return "Loading...";
       else return "Select";
     }
@@ -331,15 +332,15 @@ export default {
       */
       // Проверяем поля помеченные *
       if (this.login && this.email && this.password) {
-        // включаеминдикатор загрузки
+        // включаем индикатор загрузки
         this.loading = true;
         // Вызываем обработчик данных формы
         this.confirmRegistrationData()
           .then(() => {
-            // Очищаем поля
-            this.clearRegistrationData();
             // Выключаем индикатор загрузки
             this.loading = false;
+            // Очищаем поля
+            this.clearRegistrationData();
             // Выводим сообщение об успешной регистрации
             this.displaySuccess();
           })
@@ -351,7 +352,6 @@ export default {
         // Выводим ошибку
         this.displayError("Fields marked with * should not be empty.");
       }
-      
     },
 
     updateCityList() {
@@ -389,6 +389,7 @@ export default {
         Отображает текст ошибки на несколько 
         секунд 
       */
+      this.errors = [];
       this.errors.push(error);
       setTimeout(() => {
         this.errors = [];
