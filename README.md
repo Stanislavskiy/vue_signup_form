@@ -1,8 +1,13 @@
-# Vue sign up form
+# Vue.js sign up form
+
+Sign up form con
 
 > ***Task description***: https://drive.google.com/file/d/1jR5CzR6wit-mXRWrhOUfcm-DYMAr2QU5/view
 >
 > ***Demo***: http://vue-signup-form.zzz.com.ua/#/registration
+
+To retrieve the list of countries I used "REST COUNTRIES" web service. 
+To retrieve the list of cities by country code I used "GeoNames" web service.
 
 ## Build Setup
 
