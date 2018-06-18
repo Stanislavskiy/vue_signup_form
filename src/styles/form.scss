@@ -112,6 +112,8 @@ $button-background-active: hsl(158, 73%, 40%);
     width: 100%;
     margin-top: $input-margin-top;
     color: $body-color;
+    text-transform: none;
+    letter-spacing: 0em;
 
     &:focus {
       outline: none;
