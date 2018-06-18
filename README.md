@@ -7,7 +7,6 @@ Sign up form con
 > ***Demo***: http://vue-signup-form.zzz.com.ua/#/registration
 
 To retrieve the list of countries I used "***REST COUNTRIES***" web service. 
-
 To retrieve the list of cities by country code I used "***GeoNames***" web service.
 
 ## Build Setup
