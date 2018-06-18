@@ -88,6 +88,8 @@ $button-background-active: hsl(158, 73%, 40%);
     box-sizing: border-box;
     display: block;
     color: $label-color;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
 
     &_width {
       &_normal {
@@ -135,6 +137,8 @@ $button-background-active: hsl(158, 73%, 40%);
     background: $button-background;
     font-size: 0.6875rem;
     transition: background 0.1s ease-in;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
 
     &:focus {
       outline: none;
