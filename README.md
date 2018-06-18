@@ -3,7 +3,7 @@
 
 > ***Task description***: https://drive.google.com/file/d/1jR5CzR6wit-mXRWrhOUfcm-DYMAr2QU5/view
 >
-> ***Demo***: http://vue-signup-form.zzz.com.ua/#/registration
+> ***Demo***: http://vue-signup-form.zzz.com.ua
 
 This app use third-party web services like: "***REST COUNTRIES***" and "***GeoNames***". This web services serve for retrieving the list of countries and cities.
 
