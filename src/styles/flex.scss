@@ -1,0 +1,71 @@
+.flex {
+  display: -webkit-box !important; /* OLD - iOS 6-, Safari 3.1-6 */
+  display: -moz-box !important; /* OLD - Firefox 19- (buggy but mostly works) */
+  display: -ms-flexbox !important; /* TWEENER - IE 10 */
+  display: -webkit-flex !important; /* NEW - Chrome */
+  display: flex !important;
+
+  &_justify {
+    &_center {
+      justify-content: center;
+    }
+
+    &_start {
+      justify-content: flex-start;
+    }
+
+    &_stretch {
+      justify-content: stretch;
+    }
+
+    &_around {
+      justify-content: space-around;
+    }
+
+    &_between {
+      justify-content: space-between;
+    }
+
+    &_start {
+      justify-content: flex-start;
+    }
+
+    &_grow {
+      &_1 {
+        flex-grow: 1;
+      }
+    }
+  }
+
+  &_align {
+    &_center {
+      align-items: center;
+    }
+
+    &_start {
+      align-items: flex-start;
+    }
+
+    &_end {
+      align-items: flex-end;
+    }
+  }
+
+  &_content {
+    &_start {
+      align-content: flex-start;
+    }
+  }
+
+  &_row {
+    flex-direction: row;
+  }
+
+  &_column {
+    flex-direction: column;
+  }
+
+  &_wrap {
+    flex-wrap: wrap;
+  }
+}

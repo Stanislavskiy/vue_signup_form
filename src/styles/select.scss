@@ -1,0 +1,80 @@
+/* 
+  Переопределение стилей vue-select
+*/
+
+@import "form.scss";
+@import "flex.scss";
+
+.btn-select {
+  width: 100%;
+  border: none !important;
+  height: 100%;
+  background: #fff;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.buttonLabel {
+  align-items: center;
+  justify-content: space-between;
+  justify-content: space-between;
+  width: 100%;
+  text-align: left;
+}
+
+.checkboxLayer .selectList {
+  box-sizing: border-box;
+  max-height: 10rem;
+}
+
+.dropdown-toggle {
+  border: none !important;
+  box-sizing: border-box;
+  font-size: 0.875rem;
+  display: block;
+  border-radius: 5px;
+  height: 100%;
+}
+
+.form-control {
+  display: flex !important;
+  overflow: hidden !important;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  height: 100% !important;
+  border-radius: 5px;
+  padding-left: 0.6875rem !important;
+  padding-right: 0.6875rem !important;
+}
+
+.form-control:disabled,
+i.open-indicator {
+  background: #fff !important;
+}
+
+i.open-indicator:before {
+  display: block !important;
+  border-width: 2px 2px 0px 0px !important;
+  height: 8px !important;
+  width: 8px !important;
+  border-color: #d5dce6 !important;
+}
+
+ul.dropdown-menu {
+  top: 94% !important;
+  left: 0 !important;
+  border: 1px solid #d5dce6 !important;
+  border-top: none !important;
+  height: 10rem;
+  width: 101% !important;
+  overflow-x: hidden;
+  padding-top: 0px !important;
+  margin: 0px 0px 0px -1px !important;
+}
+
+.clear {
+  display: none !important;
+}

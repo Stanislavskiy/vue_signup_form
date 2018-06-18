@@ -1,131 +1,160 @@
 <template>
   <div 
     id="FormRegistration"
-    class="form-registration"
+    class="form flex flex_column flex_align_center"
   >
     <!-- User card -->
-    <div class="form-registration__card">
-        <h2 class="form-registration__header">
+    <div class="form__body form__body_border-radius_2">
+        <h2 class="form__header font font_l">
           New user
         </h2>
-        <div class="form-registration__content">
-          {{firstName || "First name"}} 
-          {{lastName || "Last name"}} / 
-          <span class="form-registration_color_light">
-            {{login || "Login"}}
-          </span>
-          {{email || "E-mail"}}     
+        <div class="form__content">
+          <div class="form__group font font_sb">
+            {{firstName || "First name"}} 
+            {{lastName || "Last name"}} / 
+            <span class="form__group form__group_color_light">
+              {{login || "Login"}}
+            </span>
+          </div>
+          <div class="form__group form__group_margin_top font font_sb">
+            {{email || "E-mail"}}     
+          </div>
         </div>
     </div>
     
     <!-- Sign up form -->
     <form 
-      class="form form-registration__form"
-      
+      class="form__body form__body_margin_top form__body_border-radius_4"
+      @submit.prevent="submitForm()"
     >
-      <h2 class="form-registration__header">
+      <h2 class="form__header font font_l">
         Sign Up
       </h2>
-      <label class="form__label">
-          Login
+      <div class="form__group flex flex_wrap flex_justify_between">
+        <label class="form__label form__label_width_wide font font_b">
+            Login 
+            <span class="form__group form__group_color_accent ">
+              *
+            </span>
+            <input 
+              type="text" 
+              class="form__input form__input_padding font font_sb"
+              v-model="login"
+            >
+        </label>
+        <label class="form__label form__label_width_wide font font_b">
+            E-mail 
+            <span class="form__group form__group_color_accent">
+              *
+            </span>
+            <input 
+              type="email" 
+              class="form__input form__input_padding font font_sb"
+              v-model="email"
+            >
+        </label>
+        <label class="form__label form__label_width_wide font font_b">
+            Password 
+            <span class="form__group form__group_color_accent">
+              *
+            </span>
+            <input 
+              type="password" 
+              class="form__input form__input_padding font font_sb"
+              v-model="password"
+            >
+        </label>
+        <label class="form__label form__label_width_normal font font_b form_width_normal">
+          First name
           <input 
             type="text" 
-            class="form__input"
-            v-model="login"
+            class="form__input form__input_padding font font_sb form_width_normal"
+            v-model="firstName"
           >
-      </label>
-      <label class="form__label">
-          E-mail
+        </label>
+        <label class="form__label form__label_width_normal font font_b">
+          Last name
           <input 
-            type="email" 
-            class="form__input"
-            v-model="email"
+            type="text" 
+            class="form__input form__input_padding font font_sb form_width_normal"
+            v-model="lastName"
           >
-      </label>
-      <label class="form__label">
-          Password
+        </label>
+        <label 
+          for="countrySelect" 
+          class="form__label form__label_width_normal font font_b form_width_normal"
+        >
+          Country
+
+          <!-- Select -->
+          <v-select 
+            id="countrySelect"
+            class="form__input font font_sb"
+            placeholder="Select"
+            v-model="country"             
+            :options="country_list"
+            label="name"
+            :clearSearchOnSelect="false"
+            @input="updateCityList"
+          />
+        </label>
+
+        <label 
+          for="citySelect" 
+          class="form__label form__label_width_normal font font_b"
+        >
+          City
+
+          <!-- Select -->
+          <v-select
+            id="citySelect"
+            class="form__input font font_sb"
+            :placeholder="cityPlaceholder"
+            v-model="city"
+            :options="city_list || ['Loading...']"
+            :clearSearchOnSelect="false"
+            :disabled="!country "
+          />
+        </label>
+
+        <label class="form__label form__label_width_normal font font_b">
+          Birth date
+
+          <!-- Datepicker -->
+          <flat-pickr 
+            v-model="birthDate"
+            :wrap="true"
+            class="form__input form__input_padding font font_sb form__input_background_calendar"
+          />
+        </label>
+
+        <label class="form__label form__label_width_normal font font_b">
+          Zip code
           <input 
-            type="password" 
-            class="form__input"
-            v-model="password"
+            type="text" 
+            class="form__input form__input_padding font font_sb"
+            v-model="zipCode"
           >
-      </label>
-      <label class="form__label">
-        First name
-        <input 
-          type="text" 
-          class="form__input"
-          v-model="firstName"
-        >
-      </label>
-      <label class="form__label">
-        Last name
-        <input 
-          type="text" 
-          class="form__input"
-          v-model="lastName"
-        >
-      </label>
-      <label for="countrySelect" class="form__label">
-        Country
-      </label>
-
-      <!-- Select -->
-      <v-select 
-        id="countrySelect"
-        placeholder="Select"
-        v-model="country"             
-        :options="country_list"
-        label="name"
-        :clearSearchOnSelect="false"
-        @input="updateCityList"
-      />
-
-      <label for="citySelect" class="form__label">
-        City
-      </label>
-
-      <!-- Select -->
-      <v-select
-        id="citySelect"
-        placeholder="Select"
-        v-model="city"
-        :options="city_list"
-        :disabled="!country"
-        :clearSearchOnSelect="false"
-      />
-
-      <label class="form__label">
-        Birth date
-        <!-- Datepicker -->
-        <datepicker 
-          v-model="birthDate"
-          format="dd MMM yyyy"
-        />
-      </label>
-
-      <label class="form__label">
-        Zip code
-        <input 
-          type="text" 
-          class="form__input"
-          v-model="zipCode"
-        >
-      </label>
-      <div v-if="errors.length" class="form__errors">
-        <div v-for="error in errors" :key="error">
-          {{error}}
-        </div>  
+        </label>
       </div>
-      <div v-if="success" class="form__success">
-        <div class="form__success-title">Success!</div>
-        <div class="form__success-content">
-          All changes saved.
-        </div>
+      <div class="form__info flex flex_column flex_align_center flex_justify_around font font_r">
+        <transition name="fade">
+          <div v-if="errors.length" class="form__error">
+              <span v-for="error in errors" :key="error">
+                {{error}}
+              </span>  
+          </div>
+          <div v-if="success" class="form__success">
+              Success! All changes saved.
+          </div>
+        </transition>
       </div>
-      <button class="form__button" @click.prevent="getCountries()" type="submit">
-        Sign up
-      </button>
+        <button 
+          class="form__button font font_b" 
+          type="submit"
+        >
+          Sign up
+        </button>
     </form>
   </div>
 </template>
@@ -133,10 +162,15 @@
 <script>
 import { mapMutations, mapActions } from "vuex";
 import { getCountries, getCities } from "../../api";
-
 // Сторонние компоненты
-import Datepicker from "vuejs-datepicker";
 import vSelect from "vue-select";
+import flatPickr from "vue-flatpickr-component";
+// Стили сторонних компонентов
+import "../../styles/select.scss";
+import "flatpickr/dist/flatpickr.css";
+import "flatpickr/dist/themes/airbnb.css";
+// Переходы
+import "../../styles/transition.scss";
 
 export default {
   data() {
@@ -159,7 +193,7 @@ export default {
 
   components: {
     vSelect,
-    Datepicker
+    flatPickr
   },
 
   computed: {
@@ -248,6 +282,14 @@ export default {
       set(value) {
         return this.updateZipCode(value);
       }
+    },
+
+    cityPlaceholder: function() {
+      /*
+        Для отображения статуса загрузки городов 
+      */
+      if (this.country && this.city_list.length === 0) return "Loading...";
+      else return "Select";
     }
   },
 
@@ -255,12 +297,10 @@ export default {
     country: function() {
       /* 
         Следим за изменением значения страны.
-        Очищаем значение города если значение 
-        страны неизвестно
+        Очищаем значение города при изменении
+        значения страны
       */
-      if (!this.country) {
-        this.updateCity(null);
-      }
+      this.updateCity(null);
     }
   },
 
@@ -300,9 +340,7 @@ export default {
           });
       } else {
         // Выводим ошибку
-        this.errors.push(`
-          Fields marked with * should not be empty
-          `);
+        this.errors.push("Fields marked with * should not be empty.");
       }
     },
 
@@ -345,3 +383,9 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+@import "../../styles/form";
+@import "../../styles/flex";
+@import "../../styles/font";
+</style>

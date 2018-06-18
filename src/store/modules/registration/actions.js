@@ -21,7 +21,7 @@ const actions = {
       Возвращает промис c задержкой
     */
     return new Promise((resolve, reject) => {
-      setTimeout(resolve, 2000);
+      setTimeout(resolve, 1000);
     });
   }
 };

@@ -1,0 +1,19 @@
+.font {
+  font-family: "Open Sans", sans-serif;
+
+  &_l {
+    font-weight: 300;
+  }
+
+  &_r {
+    font-weight: 400;
+  }
+
+  &_sb {
+    font-weight: 600;
+  }
+
+  &_b {
+    font-weight: 700;
+  }
+}
