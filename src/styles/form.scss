@@ -27,6 +27,7 @@ $label-wide-large: 26.75rem;
 $label-wide-small: 100%;
 $label-normal-large: 12.4375rem;
 $label-normal-small: 100%;
+$label-color: #7a8196;
 // .form__input
 $input-border: 1px solid #d5dce6;
 $input-margin-top: 0.75rem;
@@ -45,7 +46,7 @@ $button-background-active: hsl(158, 73%, 40%);
   padding-top: $form-padding-large;
   padding-bottom: $form-padding-large;
   position: relative;
-  
+
   &__body {
     box-sizing: border-box;
     display: inline-block;
@@ -74,7 +75,7 @@ $button-background-active: hsl(158, 73%, 40%);
     margin: 0;
     font-size: 2rem;
   }
-  
+
   &__content {
     margin-top: $content-margin-top;
     font-size: 0.875rem;
@@ -86,7 +87,7 @@ $button-background-active: hsl(158, 73%, 40%);
     margin-top: $label-margin-top;
     box-sizing: border-box;
     display: block;
-    color: $body-color;
+    color: $label-color;
 
     &_width {
       &_normal {
@@ -120,7 +121,8 @@ $button-background-active: hsl(158, 73%, 40%);
     }
 
     &_background_calendar {
-      background: url("~/assets/calendar.png") no-repeat center right $input-padding;
+      background: url("~/assets/calendar.png") no-repeat center right
+        $input-padding;
     }
   }
 
