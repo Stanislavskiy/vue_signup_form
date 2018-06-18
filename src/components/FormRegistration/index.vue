@@ -138,6 +138,7 @@
         </label>
       </div>
       <div class="form__info flex flex_column flex_align_center flex_justify_around font font_r">
+        <pulse-loader v-if="loading" />
         <transition name="fade">
           <div v-if="errors.length" class="form__error">
               <span v-for="error in errors" :key="error">
@@ -165,6 +166,7 @@ import { getCountries, getCities } from "../../api";
 // Сторонние компоненты
 import vSelect from "vue-select";
 import flatPickr from "vue-flatpickr-component";
+import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
 // Стили сторонних компонентов
 import "../../styles/select.scss";
 import "flatpickr/dist/flatpickr.css";
@@ -187,13 +189,18 @@ export default {
         Индикатор успешного выполнения всех 
         операций 
       */
-      success: false
+      success: false,
+      loading: false
     };
   },
 
   components: {
+    // Select
     vSelect,
-    flatPickr
+    // Datepicker
+    flatPickr,
+    // Spinner
+    PulseLoader 
   },
 
   computed: {
@@ -286,7 +293,7 @@ export default {
 
     cityPlaceholder: function() {
       /*
-        Для отображения статуса загрузки городов 
+        Для отображения статуса загрузки списка городов 
       */
       if (this.country && this.city_list.length === 0) return "Loading...";
       else return "Select";
@@ -322,26 +329,29 @@ export default {
       /* 
         Вызывается в момент подтверждения формы.
       */
-      this.errors = [];
-
       // Проверяем поля помеченные *
       if (this.login && this.email && this.password) {
+        // включаеминдикатор загрузки
+        this.loading = true;
         // Вызываем обработчик данных формы
         this.confirmRegistrationData()
           .then(() => {
             // Очищаем поля
             this.clearRegistrationData();
+            // Выключаем индикатор загрузки
+            this.loading = false;
             // Выводим сообщение об успешной регистрации
             this.displaySuccess();
           })
           .catch(e => {
             // выводим ошибку
-            this.errors.push(e);
+            this.displayError(e);
           });
       } else {
         // Выводим ошибку
-        this.errors.push("Fields marked with * should not be empty.");
+        this.displayError("Fields marked with * should not be empty.");
       }
+      
     },
 
     updateCityList() {
@@ -364,13 +374,24 @@ export default {
 
     displaySuccess() {
       /* 
-        Делаем значение success=true на несколько 
+        Делает значение success=true на несколько 
         секунд для отображения сообщения об успешной 
         регистрации
       */
       this.success = true;
       setTimeout(() => {
         this.success = false;
+      }, 5000);
+    },
+
+    displayError(error) {
+      /* 
+        Отображает текст ошибки на несколько 
+        секунд 
+      */
+      this.errors.push(error);
+      setTimeout(() => {
+        this.errors = [];
       }, 5000);
     }
   },

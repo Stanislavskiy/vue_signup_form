@@ -5,14 +5,14 @@
   padding-top: 3.46rem;
   padding-bottom: 3.46rem;
   position: relative;
-  color: #343e5c;
-
+  
   &__body {
     box-sizing: border-box;
-    display: block;
+    display: inline-block;
     width: 35.625rem;
     background: #fff;
     padding: 2.125rem 4.25rem 2.125rem 4.25rem;
+    color: #343e5c;
 
     &_margin_top {
       margin-top: 1.3125rem;
@@ -49,6 +49,7 @@
     margin-top: 1.625rem;
     box-sizing: border-box;
     display: block;
+    color: #343e5c;
 
     &_width {
       &_normal {
@@ -74,6 +75,7 @@
     height: 2.5rem;
     width: 100%;
     margin-top: 0.75rem;
+    color: #343e5c;
 
     &:focus {
       outline: none;
