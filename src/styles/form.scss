@@ -141,6 +141,7 @@ $button-background-active: hsl(158, 73%, 40%);
     transition: background 0.1s ease-in;
     letter-spacing: 0.1em;
     text-transform: uppercase;
+    cursor: pointer;
 
     &:focus {
       outline: none;

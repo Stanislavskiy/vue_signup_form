@@ -124,6 +124,7 @@
           <flat-pickr 
             v-model="birthDate"
             :wrap="true"
+            :allowInput="true"
             class="form__input form__input_padding font font_sb form__input_background_calendar"
           />
         </label>
@@ -169,13 +170,11 @@ import flatPickr from "vue-flatpickr-component";
 import PulseLoader from "vue-spinner/src/PulseLoader.vue";
 // Стили сторонних компонентов
 import "../../styles/select.scss";
-import "flatpickr/dist/flatpickr.css";
 import "flatpickr/dist/themes/airbnb.css";
 /* 
   Переходы для компонентов-обёрток: transition, 
   transition-group 
 */
-
 import "../../styles/transition.scss";
 
 export default {
@@ -346,6 +345,8 @@ export default {
             this.displaySuccess();
           })
           .catch(e => {
+            // Выключаем индикатор загрузки
+            this.loading = false;
             // выводим ошибку
             this.displayError(e);
           });
